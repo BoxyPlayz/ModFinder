@@ -6,12 +6,159 @@
 </head>
 <body>
     <h1>Search</h1>
-    <input type="text" id="searchBox" placeholder="Create"> <button type="button" id="searchBtn" onclick="fetchData('1.20.1')">Search</button> <br>
+    <input type="text" id="searchBox" placeholder="Create" onkeypress="handle(event)">
+    <select id="versions">
+        <optgroup label="1.0">
+            <option value="1.0">1.0</option>
+        </optgroup>
+        <optgroup label="1.1">
+            <option value="1.1">1.1</option>
+        </optgroup>
+        <optgroup label="1.2">
+            <option value="1.2.1">1.2.1</option>
+            <option value="1.2.2">1.2.2</option>
+            <option value="1.2.3">1.2.3</option>
+            <option value="1.2.4">1.2.4</option>
+            <option value="1.2.5">1.2.5</option>
+        </optgroup>
+        <optgroup label="1.3">
+            <option value="1.3.1">1.3.1</option>
+            <option value="1.3.2">1.3.2</option>
+        </optgroup>
+        <optgroup label="1.4">
+            <option value="1.4.2">1.4.2</option>
+            <option value="1.4.4">1.4.4</option>
+            <option value="1.4.5">1.4.5</option>
+            <option value="1.4.6">1.4.6</option>
+            <option value="1.4.7">1.4.7</option>
+        </optgroup>
+        <optgroup label="1.5">
+            <option value="1.5.1">1.5.1</option>
+            <option value="1.5.2">1.5.2</option>
+        </optgroup>
+        <optgroup label="1.6">
+            <option value="1.6.1">1.6.1</option>
+            <option value="1.6.2">1.6.2</option>
+            <option value="1.6.3">1.6.3</option>
+            <option value="1.6.4">1.6.4</option>
+        </optgroup>
+        <optgroup label="1.7">
+            <option value="1.7.2">1.7.2</option>
+            <option value="1.7.3">1.7.3</option>
+            <option value="1.7.4">1.7.4</option>
+            <option value="1.7.5">1.7.5</option>
+            <option value="1.7.6">1.7.6</option>
+            <option value="1.7.7">1.7.7</option>
+            <option value="1.7.8">1.7.8</option>
+            <option value="1.7.9">1.7.9</option>
+            <option value="1.7.10">1.7.10</option>
+        </optgroup>
+        <optgroup label="1.8">
+            <option value="1.8">1.8</option>
+            <option value="1.8.1">1.8.1</option>
+            <option value="1.8.2">1.8.2</option>
+            <option value="1.8.3">1.8.3</option>
+            <option value="1.8.4">1.8.4</option>
+            <option value="1.8.5">1.8.5</option>
+            <option value="1.8.6">1.8.6</option>
+            <option value="1.8.7">1.8.7</option>
+            <option value="1.8.8">1.8.8</option>
+            <option value="1.8.9">1.8.9</option>
+        </optgroup>
+        <optgroup label="1.9">
+            <option value="1.9">1.9</option>
+            <option value="1.9.1">1.9.1</option>
+            <option value="1.9.2">1.9.2</option>
+            <option value="1.9.3">1.9.3</option>
+            <option value="1.9.4">1.9.4</option>
+        </optgroup>
+        <optgroup label="1.10">
+            <option value="1.10" selected>1.10</option>
+            <option value="1.10.1" selected>1.10.1</option>
+            <option value="1.10.2" selected>1.10.2</option>
+        </optgroup>
+        <optgroup label="1.11">
+            <option value="1.11" selected>1.11</option>
+            <option value="1.11.1" selected>1.11.1</option>
+            <option value="1.11.2" selected>1.11.2</option>
+        </optgroup>
+        <optgroup label="1.12">
+            <option value="1.12" selected>1.12</option>
+            <option value="1.12.1" selected>1.12.1</option>
+            <option value="1.12.2" selected>1.12.2</option>
+        </optgroup>
+        <optgroup label="1.13">
+            <option value="1.13" selected>1.13</option>
+            <option value="1.13.1" selected>1.13.1</option>
+            <option value="1.13.2" selected>1.13.2</option>
+        </optgroup>
+        <optgroup label="1.14">
+            <option value="1.14">1.14</option>
+            <option value="1.14.1">1.14.1</option>
+            <option value="1.14.2">1.14.2</option>
+            <option value="1.14.3">1.14.3</option>
+            <option value="1.14.4">1.14.4</option>
+        </optgroup>
+        <optgroup label="1.15">
+            <option value="1.15" selected>1.15</option>
+            <option value="1.15.1" selected>1.15.1</option>
+            <option value="1.15.2" selected>1.15.2</option>
+        </optgroup>
+        <optgroup label="1.16">
+            <option value="1.16">1.16</option>
+            <option value="1.16.1">1.16.1</option>
+            <option value="1.16.2">1.16.2</option>
+            <option value="1.16.3">1.16.3</option>
+            <option value="1.16.4">1.16.4</option>
+            <option value="1.16.5">1.16.5</option>
+        </optgroup>
+        <optgroup label="1.17">
+            <option value="1.17" selected>1.17</option>
+            <option value="1.17.1" selected>1.17.1</option>
+        </optgroup>
+        <optgroup label="1.18">
+            <option value="1.18" selected>1.18</option>
+            <option value="1.18.1" selected>1.18.1</option>
+            <option value="1.18.2" selected>1.18.2</option>
+        </optgroup>
+        <optgroup label="1.19">
+            <option value="1.19">1.19</option>
+            <option value="1.19.1">1.19.1</option>
+            <option value="1.19.2">1.19.2</option>
+            <option value="1.19.3">1.19.3</option>
+            <option value="1.19.4">1.19.4</option>
+        </optgroup>
+        <optgroup label="1.20">
+            <option value="1.20">1.20</option>
+            <option value="1.20.1">1.20.1</option>
+            <option value="1.20.2">1.20.2</option>
+            <option value="1.20.3">1.20.3</option>
+            <option value="1.20.4">1.20.4</option>
+            <option value="1.20.5">1.20.5</option>
+            <option value="1.20.6">1.20.6</option>
+        </optgroup>
+        <optgroup label="1.21">
+            <option value="1.21" selected>1.21</option>
+            <option value="1.21.1" selected>1.21.1</option>
+        </optgroup>
+        <optgroup label="April Fool's Updates">
+            <option value="15w14a">Love and Hugs</option>
+            <option value="1.RV-Pre1">Trendy Update</option>
+            <option value="20w14infinite">Infinite Dimensions</option>
+            <option value="22w13oneBlockAtATime">One Block at a Time</option>
+            <option value="23w13a_or_b">Vote Update</option>
+            <option value="24w14potato">Poisinous Potato</option>
+        </optgroup>
+    </select>
+
+    
+
+    <button type="button" id="searchBtn" onclick="fetchData('1.20.1')" ">Search</button> <br>
     <a href="#" id="a" target="_blank" rel="noopener noreferer"><img src="" alt="Icon" id="icon" style="display: none;"></a>
+    <h3 id="error">Waiting...</h3>
 
     <div class="mods"></div>
 
-    <script src="jquery-3.7.1.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
