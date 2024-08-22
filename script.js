@@ -1,5 +1,7 @@
 const btn = document.getElementById("searchBtn");
 const err = document.getElementById("error");
+const imageElement = document.getElementById("icon");
+const aElement = document.getElementById("a");
 
 async function fetchData() {
   try {
@@ -26,8 +28,6 @@ async function fetchData() {
     const data = await response.json();
     console.log(data.hits[0]);
     const image = data.hits[0].icon_url;
-    const imageElement = document.getElementById("icon");
-    const aElement = document.getElementById("a");
     imageElement.src = image;
     imageElement.style.display = "block";
     imageElement.alt = data.hits[0].title;
@@ -56,12 +56,10 @@ async function fetchData() {
       aElement.href = xVersion;
       err.innerHTML = data.hits[0].title + " for version " + version;
     } catch (error) {
-      err.innerHTML = error;
-      console.error(error);
+        ConsoleError(error)
     }
   } catch (error) {
-    err.innerHTML = error;
-    console.error(error);
+    ConsoleError(error)
   }
 }
 
@@ -69,4 +67,11 @@ function handle(event) {
   if (event.key === "Enter") {
     fetchData("1.20");
   }
+}
+
+
+function ConsoleError(error) {
+    err.innerHTML = error;
+    console.error(error);
+    imageElement.src = "error.jpg";
 }
