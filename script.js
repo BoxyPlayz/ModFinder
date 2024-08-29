@@ -7,14 +7,25 @@ async function fetchData() {
   try {
     const search = document.getElementById("searchBox").value.toLowerCase();
     const version = document.getElementById("versions").value;
+    const loader = document.getElementById("loader").value;
 
-    const response = await fetch(
-      "https://api.modrinth.com/v2/search?query=" +
-        search +
-        '&&facets=[["project_type:mod"],["versions:' +
-        version +
-        '"]]&&limit=1'
-    );
+    let catagory;
+    if (loader === 'All') {
+        catagory = ''
+    }
+    else {
+        catagory = '["categories:' + loader + '"],'
+    }
+
+    let url = 
+    "https://api.modrinth.com/v2/search?query=" +
+      search +
+      '&facets=[["project_type:mod"], ' + catagory + '["versions:' +
+      version +
+      '"]]&limit=1'
+
+      console.log(url)
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error("Cant find rescorse sry");
     }
