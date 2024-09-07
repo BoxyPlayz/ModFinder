@@ -14,7 +14,7 @@ async function fetchData() {
         catagory = ''
     }
     else {
-        catagory = ',[ "categories:' + loader + '"]'
+        catagory = ',["categories:' + loader + '"]'
     }
     
     let versionStr
