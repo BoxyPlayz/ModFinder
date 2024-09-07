@@ -23,4 +23,16 @@ h3 {
 
 button {
     font-family: Minecraft;
+    max-height: 19px;
+    top: 110;
+    position: absolute;
+}
+
+a {
+    color: #000000;
+    text-decoration: none;
+}
+
+p {
+    font-size: small;
 }
