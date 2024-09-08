@@ -7,10 +7,15 @@ img {
     width: 25vh;
 }
 
+#max {
+    width: 15vw;
+}
+
 body {
     font-family: Minecraft;
     padding: 0;
     margin: 0;
+    background-color: rgb(40, 40, 255);
 }
 
 h1 {

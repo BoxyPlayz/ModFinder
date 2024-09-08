@@ -7,7 +7,10 @@
 </head>
 <body>
     <h1>Search</h1>
-    <input type="text" id="searchBox" placeholder="Create" onkeypress="handle(event)">
+    <input type="number" id="max" placeholder="Mods" min="1" max="100" value="20"><br>
+
+    <input type="text" id="searchBox" placeholder="Mod Name" onkeypress="handle(event)">
+
     <select id="versions">
         <option value="any" selected>Any</option>
         <optgroup label="1.0">
@@ -163,14 +166,14 @@
         <option value="rift">Rift</option>
         <option value="modloader">Modloader</option>
     </select>
-
     
-
     <button type="button" id="searchBtn" onclick="fetchData('1.20.1')" ">Search</button> <br>
 
     <div id="mods"></div>
 
     <h1 id="error">Waiting...</h1>
     <script src="script.js"></script>
+    <br>
+    <br>
 </body>
 </html>
