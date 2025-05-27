@@ -65,12 +65,10 @@ async function fetchData() {
       }
       let xurl = `https://api.modrinth.com/v2/project/${data.hits[num].project_id}/version?${xversion1}${loader1}`;
       const xresponse = await fetch(xurl);
-      console.log(xurl);
       if (!xresponse.ok) {
         throw new Error("Cant find rescorse sry");
       }
       let xdata = await xresponse.json();
-      console.log(xdata);
       const xVersion = xdata[num]["files"][0]["url"];
       const image = data.hits[num].icon_url;
       Name = `${data.hits[num].title} for version ${xdata[0]["game_versions"][0]}`;

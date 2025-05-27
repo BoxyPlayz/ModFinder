@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModFinder</title>
+    <style>
+        @font-face {
+            font-family: Minecraft;
+            src: url(Minecraftia-Regular.ttf);
+        }
+
+        body {
+            font-family: Minecraft, sans-serif;
+            padding: 0;
+            margin: 0;
+            background-color: rgb(40, 40, 255);
+        }
+
+        h1 {
+            font-size: 5vh;
+            text-align: center;
+            color: white;
+        }
+
+        input, select {
+            font-family: Minecraft, sans-serif;
+            font-size: 1rem;
+            margin: 0.5rem;
+        }
+
+        #max {
+            width: 15vw;
+        }
+
+        button {
+            font-family: Minecraft, sans-serif;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            margin: 0.5rem;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        img {
+            width: 25vh;
+            display: block;
+            margin: 0 auto;
+        }
+
+        a {
+            color: #000000;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        p {
+            font-size: small;
+        }
+
+        #error {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            display: none;
+        }
+
+        .mod-item {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search</h1>
+    <input type="number" id="max" placeholder="Mods" min="1" max="100" value="20">
+    <input type="text" id="searchBox" placeholder="Mod Name" onkeypress="handle(event)">
+
+    <select id="versions">
+        <!-- Version options here -->
+        <option value="any" selected>Any</option>
+        <!-- Add other options similarly as in your original HTML -->
+    </select>
+
+    <select id="loader">
+        <option value="All">Any</option>
+        <option value="forge">Forge</option>
+        <option value="fabric">Fabric</option>
+        <option value="neoforge">(Neo)Forge</option>
+        <option value="quilt">Quilt</option>
+        <option value="liteloader">Liteloader</option>
+        <option value="rift">Rift</option>
+        <option value="modloader">Modloader</option>
+    </select>
+    
+    <button type="button" id="searchBtn" onclick="fetchData()">Search</button> 
+
+    <div id="mods"></div>
+
+    <h1 id="error">Waiting...</h1>
+
+    <script>
+        const err = document.getElementById("error");
+        const mods = document.getElementById("mods");
+
+        let imageElement;
+        let aElement;
+        let textElement;
+        let descElement;
+
+        let Name;
+        let data;
+
+        async function fetchData() {
+            mods.innerHTML = "";
+
+            //URL Setup
+            const search = document.getElementById("searchBox").value.toLowerCase();
+            const version = document.getElementById("versions").value;
+            const loader = document.getElementById("loader").value;
+            const num1 = document.getElementById("max").value;
+
+            let catagory = loader === "All" ? "" : `,["categories:${loader}"]`;
+            let versionStr = version === "any" ? "" : `,["versions:${version}"]`;
+            let queryStr = search === "" ? "" : `query=${search}&`;
+
+            try {
+                //GET Metadata
+                let url = `https://api.modrinth.com/v2/search?${queryStr}facets=[["project_type:mod"]${catagory}${versionStr}]&limit=${num1}`;
+                console.log(url);
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error("Can't find resource, sorry.");
+                }
+                data = await response.json();
+
+                //GET Download
+                for (let num = 0; num < num1; num++) {
+                    let xversion1 = version === "any" ? "" : `game_versions=["${version}"]`;
+                    let loader1 = loader === "All" ? "" : `&loaders=["${loader}"]`;
+                    let xurl = `https://api.modrinth.com/v2/project/${data.hits[num].project_id}/version?${xversion1}${loader1}`;
+                    const xresponse = await fetch(xurl);
+                    if (!xresponse.ok) {
+                        throw new Error("Can't find resource, sorry.");
+                    }
+                    let xdata = await xresponse.json();
+                    const xVersion = xdata[0]["files"][0]["url"];
+                    const image = data.hits[num].icon_url;
+                    Name = `${data.hits[num].title} for version ${xdata[0]["game_versions"][0]}`;
+
+                    //Setup Elements
+                    aElement = document.createElement("a");
+                    imageElement = document.createElement("img");
+                    textElement = document.createElement("h4");
+                    descElement = document.createElement("p");
+                    aElement.href = xVersion;
+                    aElement.classList.add("mod-item");
+                    err.style.display = "none";
+
+                    //Append Items
+                    mods.appendChild(aElement);
+                    aElement.appendChild(textElement);
+                    aElement.appendChild(descElement);
+                    aElement.appendChild(imageElement);
+
+                    //Images
+                    imageElement.src = image;
+                    imageElement.alt = data.hits[num].title;
+
+                    //Meta
+                    descElement.innerHTML = data.hits[num].description;
+                    textElement.innerHTML = Name;
+                }
+            } catch (error) {
+                console.error(error);
+                err.innerHTML = "No mods found";
+                err.style.display = "block";
+            }
+        }
+
+        function handle(event) {
+            if (event.key === "Enter") {
+                fetchData();
+            }
+        }
+    </script>
+</body>
+</html>
